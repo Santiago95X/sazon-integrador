@@ -1,7 +1,7 @@
 // Página Nutrición y Perfiles (Célula 4)
 // Cada persona trabaja solo dentro de su bloque numerado.
 import './nutricion.css'
-import TablaNutricional from './TablaNutricional' // 1 - Santiago Padilla
+import TablaNutricional from './TablaNutricional'
 
 function Nutricion() {
   return (

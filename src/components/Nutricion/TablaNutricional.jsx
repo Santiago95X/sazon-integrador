@@ -2,15 +2,11 @@ import { useEffect, useId, useState } from 'react';
 import { porcion, opcionesPorcion, energia, datosNutricionales, alergenos } from './semillaNutricional';
 import { leerTablaEnPerfil, guardarTablaEnPerfil, quitarTablaDelPerfil } from './tablaNutricionalServicio';
 
-// Tabla nutricional por porción (HU 4.1.1). Estilos en nutricion.css, bloque 1.
-
 const formatoNumero = new Intl.NumberFormat('es-CO', { maximumFractionDigits: 1 });
 
 const porcentajeDiario = (valor, valorDiario) =>
   valorDiario ? Math.round((valor / valorDiario) * 100) : null;
 
-// Calorías aportadas por cada macronutriente (4 kcal/g proteína y carbohidrato, 9 kcal/g grasa).
-// La proporción no depende del tamaño de la porción, así que se calcula una sola vez.
 const buscarValor = (nombre) => datosNutricionales.find((item) => item.nutriente === nombre)?.valor ?? 0;
 const kcalMacros = [
   { nombre: 'Proteínas', kcal: buscarValor('Proteínas') * 4, clase: 'proteina' },
@@ -18,7 +14,6 @@ const kcalMacros = [
   { nombre: 'Grasas', kcal: buscarValor('Grasa total') * 9, clase: 'grasa' },
 ];
 const kcalTotalMacros = kcalMacros.reduce((suma, macro) => suma + macro.kcal, 0);
-// El último macro toma lo que falta para que la suma siempre dé 100%
 const distribucion = kcalMacros.map((macro) => ({
   ...macro,
   porcentaje: kcalTotalMacros ? Math.round((macro.kcal / kcalTotalMacros) * 100) : 0,
@@ -72,10 +67,8 @@ const TablaNutricional = () => {
   const [enPerfil, setEnPerfil] = useState(() => leerTablaEnPerfil());
   const [porcionId, setPorcionId] = useState(() => enPerfil?.porcionId ?? opcionBase.id);
   const [verMicros, setVerMicros] = useState(false);
-  // Confirmación que aparece junto al botón: { id, tipo: 'agregado' | 'quitado', texto }
   const [aviso, setAviso] = useState(null);
 
-  // El aviso se oculta solo a los 4 segundos
   useEffect(() => {
     if (!aviso) return undefined;
     const temporizador = setTimeout(() => setAviso(null), 4000);
@@ -102,12 +95,10 @@ const TablaNutricional = () => {
 
   const alternarPerfil = () => (enPerfil ? quitarDelPerfil() : agregarAlPerfil());
 
-  // Deshacer revierte la última acción del aviso
   const deshacer = () => (aviso?.tipo === 'agregado' ? quitarDelPerfil() : agregarAlPerfil());
 
   const cambiarPorcion = (id) => {
     setPorcionId(id);
-    // Si ya estaba en el perfil, se actualiza con la nueva porción
     if (enPerfil) setEnPerfil(guardarTablaEnPerfil(id));
   };
 
