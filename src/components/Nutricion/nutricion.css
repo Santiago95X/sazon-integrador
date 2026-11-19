@@ -4,62 +4,167 @@
 
 /* 1 - Santiago Padilla: Tabla nutricional (.nutricion-tabla) */
 .nutricion-tabla-card {
+  --nt-borde: rgba(63, 64, 64, 0.12);
+  --nt-borde-suave: rgba(63, 64, 64, 0.06);
+  --nt-texto-sec: var(--color-sazon-texto2);
+  --nt-pista: rgba(63, 64, 64, 0.1);
+  --nt-acento: var(--color-sazon-verdeHoja);
+  --nt-proteina: var(--color-sazon-verdeHondo);
+  --nt-carbohidrato: var(--color-sazon-hoja);
+  --nt-grasa: var(--color-sazon-cacao);
   width: 100%;
-  max-width: 42rem;
+  max-width: 44rem;
   margin: 1.5rem 0;
   background-color: #ffffff;
   color: var(--color-sazon-texto);
-  border: 1px solid rgba(63, 64, 64, 0.1);
-  border-radius: 1.5rem;
-  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--nt-borde);
+  border-radius: 1.25rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px -12px rgba(0, 0, 0, 0.12);
   overflow: hidden;
 }
 
+.dark .nutricion-tabla-card {
+  --nt-borde: rgba(255, 255, 255, 0.12);
+  --nt-borde-suave: rgba(255, 255, 255, 0.06);
+  --nt-texto-sec: rgba(244, 244, 232, 0.7);
+  --nt-pista: rgba(255, 255, 255, 0.12);
+  --nt-acento: var(--color-sazon-verdeNeon);
+  --nt-proteina: var(--color-sazon-verdeNeon);
+  --nt-carbohidrato: var(--color-sazon-hoja);
+  --nt-grasa: #E0A872;
+  background-color: var(--color-sazon-verdeNutresaCard);
+  color: var(--color-sazon-marfil);
+}
+
+/* Encabezado */
 .nutricion-tabla-encabezado {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   gap: 1rem;
-  padding: 1.5rem 2rem;
-  border-bottom: 1px solid rgba(63, 64, 64, 0.1);
-  background: linear-gradient(to right, rgba(127, 186, 0, 0.1), transparent);
+  padding: 1.5rem 2rem 1.25rem;
+  border-bottom: 1px solid var(--nt-borde);
+}
+
+.nutricion-tabla-eyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nt-acento);
 }
 
 .nutricion-tabla-titulo {
   margin: 0;
   font-size: 1.5rem;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--color-sazon-verdeHondo);
+  color: var(--color-sazon-verdeNoche);
+}
+
+.dark .nutricion-tabla-titulo {
+  color: var(--color-sazon-marfil);
 }
 
 .nutricion-tabla-porcion {
+  margin: 0.375rem 0 0;
+  font-size: 0.875rem;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-energia {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+}
+
+.nutricion-tabla-energia-valor {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--color-sazon-verdeNoche);
+}
+
+.dark .nutricion-tabla-energia-valor {
+  color: var(--color-sazon-marfil);
+}
+
+.nutricion-tabla-energia-unidad {
+  margin-top: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--nt-texto-sec);
+}
+
+/* Distribución de energía */
+.nutricion-tabla-distribucion {
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid var(--nt-borde);
+}
+
+.nutricion-tabla-subtitulo {
+  margin: 0 0 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-distribucion-barra {
+  display: flex;
+  gap: 2px;
+  height: 0.625rem;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.nutricion-tabla-segmento.es-proteina,
+.nutricion-tabla-leyenda-punto.es-proteina {
+  background-color: var(--nt-proteina);
+}
+
+.nutricion-tabla-segmento.es-carbohidrato,
+.nutricion-tabla-leyenda-punto.es-carbohidrato {
+  background-color: var(--nt-carbohidrato);
+}
+
+.nutricion-tabla-segmento.es-grasa,
+.nutricion-tabla-leyenda-punto.es-grasa {
+  background-color: var(--nt-grasa);
+}
+
+.nutricion-tabla-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+}
+
+.nutricion-tabla-leyenda li {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin: 0.5rem 0 0;
-  font-size: 0.875rem;
-  color: var(--color-sazon-texto2);
 }
 
-.nutricion-tabla-punto {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 9999px;
-  background-color: var(--color-sazon-verdeHoja);
-}
-
-.nutricion-tabla-insignia {
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
+.nutricion-tabla-leyenda strong {
+  font-family: var(--font-inter);
   font-weight: 700;
-  color: var(--color-sazon-verdeHondo);
-  background-color: rgba(127, 186, 0, 0.15);
-  border: 1px solid rgba(61, 142, 51, 0.3);
 }
 
+.nutricion-tabla-leyenda-punto {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 0.1875rem;
+}
+
+/* Tabla */
 .nutricion-tabla-scroll {
   overflow-x: auto;
 }
@@ -71,77 +176,116 @@
   text-align: left;
 }
 
-.nutricion-tabla th {
-  padding: 1rem 2rem;
-  font-size: 0.75rem;
+.nutricion-tabla-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.nutricion-tabla thead th {
+  padding: 0.75rem 2rem;
+  font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--color-sazon-texto2);
-  border-bottom: 1px solid rgba(63, 64, 64, 0.1);
+  color: var(--nt-texto-sec);
+  border-bottom: 1px solid var(--nt-borde);
 }
 
+.nutricion-tabla tbody th,
 .nutricion-tabla td {
-  padding: 1.25rem 2rem;
-  border-bottom: 1px solid rgba(63, 64, 64, 0.06);
+  padding: 0.75rem 2rem;
+  border-bottom: 1px solid var(--nt-borde-suave);
+  vertical-align: middle;
 }
 
-.nutricion-tabla tbody tr:hover {
+.nutricion-tabla tbody tr:not(.nutricion-tabla-grupo):hover {
   background-color: rgba(127, 186, 0, 0.06);
 }
 
 .nutricion-tabla-num {
   text-align: right;
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
-.nutricion-tabla th.nutricion-tabla-col-vd {
-  width: 33%;
+.nutricion-tabla thead th.nutricion-tabla-col-vd {
+  width: 38%;
 }
 
 .nutricion-tabla-nombre {
-  font-weight: 600;
+  font-family: var(--font-inter);
+  font-weight: 700;
+}
+
+.nutricion-tabla-fila-sub .nutricion-tabla-nombre {
+  padding-left: 3.25rem;
+  font-weight: 400;
+  color: var(--nt-texto-sec);
 }
 
 .nutricion-tabla-valor {
-  font-size: 1.125rem;
-  font-weight: 900;
-  color: var(--color-sazon-verdeNoche);
+  font-weight: 700;
+}
+
+.nutricion-tabla-fila-sub .nutricion-tabla-valor {
+  font-weight: 500;
 }
 
 .nutricion-tabla-unidad {
   margin-left: 0.25rem;
   font-size: 0.75rem;
-  color: var(--color-sazon-texto2);
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-grupo th {
+  padding: 1rem 2rem 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--nt-acento);
+  border-top: 2px solid var(--nt-borde);
+  border-bottom: none;
 }
 
 .nutricion-tabla-vd {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.875rem;
 }
 
 .nutricion-tabla-barra {
   flex: 1;
-  height: 0.625rem;
+  height: 0.375rem;
   border-radius: 9999px;
-  background-color: rgba(63, 64, 64, 0.1);
+  background-color: var(--nt-pista);
   overflow: hidden;
 }
 
 .nutricion-tabla-barra-relleno {
   height: 100%;
   border-radius: 9999px;
-  background-color: var(--color-sazon-verdeHoja);
+  background-color: var(--nt-acento);
 }
 
 .nutricion-tabla-porcentaje {
-  width: 2.5rem;
+  width: 2.75rem;
   text-align: right;
   font-weight: 700;
-  color: var(--color-sazon-texto2);
+  font-variant-numeric: tabular-nums;
 }
 
+.nutricion-tabla-sin-vd {
+  display: block;
+  text-align: right;
+  color: var(--nt-texto-sec);
+}
+
+/* Pie */
 .nutricion-tabla-pie {
   display: flex;
   flex-wrap: wrap;
@@ -149,31 +293,38 @@
   align-items: center;
   gap: 1rem;
   padding: 1.25rem 2rem;
-  border-top: 1px solid rgba(63, 64, 64, 0.1);
+  border-top: 1px solid var(--nt-borde);
 }
 
 .nutricion-tabla-alergenos {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
 }
 
 .nutricion-tabla-etiqueta {
-  margin-right: 0.5rem;
+  margin-right: 0.25rem;
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--color-sazon-texto2);
+  color: var(--nt-texto-sec);
 }
 
 .nutricion-tabla-alergeno {
   padding: 0.25rem 0.75rem;
-  border-radius: 0.5rem;
+  border-radius: 9999px;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-sazon-cacao);
-  background-color: rgba(100, 59, 34, 0.1);
-  border: 1px solid rgba(100, 59, 34, 0.25);
+  background-color: rgba(100, 59, 34, 0.08);
+  border: 1px solid rgba(100, 59, 34, 0.2);
+}
+
+.dark .nutricion-tabla-alergeno {
+  color: var(--color-sazon-marfil);
+  background-color: rgba(244, 244, 232, 0.08);
+  border-color: rgba(244, 244, 232, 0.2);
 }
 
 .nutricion-tabla-boton {
@@ -181,7 +332,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.625rem 1.5rem;
+  padding: 0.625rem 1.25rem;
   border: none;
   border-radius: 0.75rem;
   font-family: var(--font-inter);
@@ -197,79 +348,42 @@
   background-color: var(--color-sazon-verdeHondo);
 }
 
+.nutricion-tabla-boton:focus-visible {
+  outline: 2px solid var(--nt-acento);
+  outline-offset: 2px;
+}
+
 .nutricion-tabla-nota {
   margin: 0;
-  padding: 0.75rem 2rem;
-  font-size: 0.6875rem;
-  color: var(--color-sazon-texto2);
+  padding: 0.875rem 2rem 1.25rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--nt-texto-sec);
 }
 
-/* Modo oscuro */
-.dark .nutricion-tabla-card {
-  background-color: var(--color-sazon-verdeNutresaCard);
-  color: var(--color-sazon-marfil);
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-.dark .nutricion-tabla-encabezado,
-.dark .nutricion-tabla th,
-.dark .nutricion-tabla-pie {
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-.dark .nutricion-tabla td {
-  border-color: rgba(255, 255, 255, 0.06);
-}
-
-.dark .nutricion-tabla-titulo,
-.dark .nutricion-tabla-valor {
-  color: var(--color-sazon-marfil);
-}
-
-.dark .nutricion-tabla-porcion,
-.dark .nutricion-tabla th,
-.dark .nutricion-tabla-unidad,
-.dark .nutricion-tabla-porcentaje,
-.dark .nutricion-tabla-etiqueta,
-.dark .nutricion-tabla-nota {
-  color: rgba(244, 244, 232, 0.7);
-}
-
-.dark .nutricion-tabla-insignia {
-  color: var(--color-sazon-verdeNeon);
-  border-color: rgba(102, 209, 73, 0.4);
-}
-
-.dark .nutricion-tabla-barra {
-  background-color: rgba(255, 255, 255, 0.12);
-}
-
-.dark .nutricion-tabla-barra-relleno,
-.dark .nutricion-tabla-punto {
-  background-color: var(--color-sazon-verdeNeon);
-}
-
-.dark .nutricion-tabla-alergeno {
-  color: var(--color-sazon-marfil);
-  background-color: rgba(244, 244, 232, 0.1);
-  border-color: rgba(244, 244, 232, 0.25);
-}
-
-/* Celular: menos relleno y sin barra, para que el % siempre se vea */
+/* Celular: menos relleno y sin barras, para que el % siempre se vea */
 @media (max-width: 640px) {
   .nutricion-tabla-encabezado,
+  .nutricion-tabla-distribucion,
   .nutricion-tabla-pie,
   .nutricion-tabla-nota {
     padding-left: 1rem;
     padding-right: 1rem;
   }
 
-  .nutricion-tabla th,
-  .nutricion-tabla td {
-    padding: 0.875rem 0.75rem;
+  .nutricion-tabla thead th,
+  .nutricion-tabla tbody th,
+  .nutricion-tabla td,
+  .nutricion-tabla-grupo th {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 
-  .nutricion-tabla th.nutricion-tabla-col-vd {
+  .nutricion-tabla-fila-sub .nutricion-tabla-nombre {
+    padding-left: 1.75rem;
+  }
+
+  .nutricion-tabla thead th.nutricion-tabla-col-vd {
     width: auto;
     text-align: right;
   }
