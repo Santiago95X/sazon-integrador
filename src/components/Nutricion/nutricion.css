@@ -3,7 +3,289 @@
 /* y colores de las variables --color-sazon-* definidas en index.css. */
 
 /* 1 - Santiago Padilla: Tabla nutricional (.nutricion-tabla) */
+.nutricion-tabla-card {
+  width: 100%;
+  max-width: 42rem;
+  margin: 1.5rem 0;
+  background-color: #ffffff;
+  color: var(--color-sazon-texto);
+  border: 1px solid rgba(63, 64, 64, 0.1);
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
 
+.nutricion-tabla-encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(63, 64, 64, 0.1);
+  background: linear-gradient(to right, rgba(127, 186, 0, 0.1), transparent);
+}
+
+.nutricion-tabla-titulo {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--color-sazon-verdeHondo);
+}
+
+.nutricion-tabla-porcion {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.875rem;
+  color: var(--color-sazon-texto2);
+}
+
+.nutricion-tabla-punto {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--color-sazon-verdeHoja);
+}
+
+.nutricion-tabla-insignia {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-sazon-verdeHondo);
+  background-color: rgba(127, 186, 0, 0.15);
+  border: 1px solid rgba(61, 142, 51, 0.3);
+}
+
+.nutricion-tabla-scroll {
+  overflow-x: auto;
+}
+
+.nutricion-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  text-align: left;
+}
+
+.nutricion-tabla th {
+  padding: 1rem 2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-sazon-texto2);
+  border-bottom: 1px solid rgba(63, 64, 64, 0.1);
+}
+
+.nutricion-tabla td {
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid rgba(63, 64, 64, 0.06);
+}
+
+.nutricion-tabla tbody tr:hover {
+  background-color: rgba(127, 186, 0, 0.06);
+}
+
+.nutricion-tabla-num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.nutricion-tabla th.nutricion-tabla-col-vd {
+  width: 33%;
+}
+
+.nutricion-tabla-nombre {
+  font-weight: 600;
+}
+
+.nutricion-tabla-valor {
+  font-size: 1.125rem;
+  font-weight: 900;
+  color: var(--color-sazon-verdeNoche);
+}
+
+.nutricion-tabla-unidad {
+  margin-left: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--color-sazon-texto2);
+}
+
+.nutricion-tabla-vd {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nutricion-tabla-barra {
+  flex: 1;
+  height: 0.625rem;
+  border-radius: 9999px;
+  background-color: rgba(63, 64, 64, 0.1);
+  overflow: hidden;
+}
+
+.nutricion-tabla-barra-relleno {
+  height: 100%;
+  border-radius: 9999px;
+  background-color: var(--color-sazon-verdeHoja);
+}
+
+.nutricion-tabla-porcentaje {
+  width: 2.5rem;
+  text-align: right;
+  font-weight: 700;
+  color: var(--color-sazon-texto2);
+}
+
+.nutricion-tabla-pie {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 2rem;
+  border-top: 1px solid rgba(63, 64, 64, 0.1);
+}
+
+.nutricion-tabla-alergenos {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nutricion-tabla-etiqueta {
+  margin-right: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-sazon-texto2);
+}
+
+.nutricion-tabla-alergeno {
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-sazon-cacao);
+  background-color: rgba(100, 59, 34, 0.1);
+  border: 1px solid rgba(100, 59, 34, 0.25);
+}
+
+.nutricion-tabla-boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-family: var(--font-inter);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--color-sazon-verdeHoja);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.nutricion-tabla-boton:hover {
+  background-color: var(--color-sazon-verdeHondo);
+}
+
+.nutricion-tabla-nota {
+  margin: 0;
+  padding: 0.75rem 2rem;
+  font-size: 0.6875rem;
+  color: var(--color-sazon-texto2);
+}
+
+/* Modo oscuro */
+.dark .nutricion-tabla-card {
+  background-color: var(--color-sazon-verdeNutresaCard);
+  color: var(--color-sazon-marfil);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dark .nutricion-tabla-encabezado,
+.dark .nutricion-tabla th,
+.dark .nutricion-tabla-pie {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dark .nutricion-tabla td {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.dark .nutricion-tabla-titulo,
+.dark .nutricion-tabla-valor {
+  color: var(--color-sazon-marfil);
+}
+
+.dark .nutricion-tabla-porcion,
+.dark .nutricion-tabla th,
+.dark .nutricion-tabla-unidad,
+.dark .nutricion-tabla-porcentaje,
+.dark .nutricion-tabla-etiqueta,
+.dark .nutricion-tabla-nota {
+  color: rgba(244, 244, 232, 0.7);
+}
+
+.dark .nutricion-tabla-insignia {
+  color: var(--color-sazon-verdeNeon);
+  border-color: rgba(102, 209, 73, 0.4);
+}
+
+.dark .nutricion-tabla-barra {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.dark .nutricion-tabla-barra-relleno,
+.dark .nutricion-tabla-punto {
+  background-color: var(--color-sazon-verdeNeon);
+}
+
+.dark .nutricion-tabla-alergeno {
+  color: var(--color-sazon-marfil);
+  background-color: rgba(244, 244, 232, 0.1);
+  border-color: rgba(244, 244, 232, 0.25);
+}
+
+/* Celular: menos relleno y sin barra, para que el % siempre se vea */
+@media (max-width: 640px) {
+  .nutricion-tabla-encabezado,
+  .nutricion-tabla-pie,
+  .nutricion-tabla-nota {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .nutricion-tabla th,
+  .nutricion-tabla td {
+    padding: 0.875rem 0.75rem;
+  }
+
+  .nutricion-tabla th.nutricion-tabla-col-vd {
+    width: auto;
+    text-align: right;
+  }
+
+  .nutricion-tabla-barra {
+    display: none;
+  }
+
+  .nutricion-tabla-vd {
+    justify-content: flex-end;
+  }
+
+  .nutricion-tabla-boton {
+    width: 100%;
+  }
+}
 /* Fin 1 */
 
 /* 2 - Juan Camilo Valencia Estrada: Semáforo y avisos (.nutricion-semaforo-*, .nutricion-aviso-card) */
