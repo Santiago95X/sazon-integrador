@@ -1,13 +1,8 @@
-// Semilla de datos nutricionales por porción (datos simulados mientras no haya API).
-// valorDiario: referencia para una dieta de 2000 kcal; null si no aplica.
-// nivel: 0 = nutriente principal, 1 = subcomponente (se muestra con sangría).
-
 export const porcion = {
   descripcion: '1 unidad',
   gramos: 100,
 }
 
-// Opciones del selector de porción; factor multiplica los valores de la porción base
 export const opcionesPorcion = [
   { id: 'media', etiqueta: '½ porción', gramos: 50, factor: 0.5 },
   { id: 'una', etiqueta: '1 porción', gramos: 100, factor: 1 },
