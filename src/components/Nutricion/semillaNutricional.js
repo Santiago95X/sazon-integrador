@@ -7,6 +7,13 @@ export const porcion = {
   gramos: 100,
 }
 
+// Opciones del selector de porción; factor multiplica los valores de la porción base
+export const opcionesPorcion = [
+  { id: 'media', etiqueta: '½ porción', gramos: 50, factor: 0.5 },
+  { id: 'una', etiqueta: '1 porción', gramos: 100, factor: 1 },
+  { id: 'doble', etiqueta: '2 porciones', gramos: 200, factor: 2 },
+]
+
 export const energia = { valor: 250, unidad: 'kcal', valorDiario: 2000 }
 
 export const datosNutricionales = [
