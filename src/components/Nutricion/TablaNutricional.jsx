@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { porcion, opcionesPorcion, energia, datosNutricionales, alergenos } from './semillaNutricional';
 import { leerTablaEnPerfil, guardarTablaEnPerfil, quitarTablaDelPerfil } from './tablaNutricionalServicio';
 
@@ -30,12 +30,6 @@ if (kcalTotalMacros) {
 
 const opcionBase = opcionesPorcion.find((opcion) => opcion.factor === 1) ?? opcionesPorcion[0];
 const buscarOpcion = (id) => opcionesPorcion.find((opcion) => opcion.id === id) ?? opcionBase;
-
-const avisar = (mensaje) => {
-  if (typeof window !== 'undefined' && typeof window.showToast === 'function') {
-    window.showToast(mensaje);
-  }
-};
 
 const FilaNutriente = ({ item, factor }) => {
   const valor = item.valor * factor;
@@ -78,6 +72,15 @@ const TablaNutricional = () => {
   const [enPerfil, setEnPerfil] = useState(() => leerTablaEnPerfil());
   const [porcionId, setPorcionId] = useState(() => enPerfil?.porcionId ?? opcionBase.id);
   const [verMicros, setVerMicros] = useState(false);
+  // Confirmación que aparece junto al botón: { id, tipo: 'agregado' | 'quitado', texto }
+  const [aviso, setAviso] = useState(null);
+
+  // El aviso se oculta solo a los 4 segundos
+  useEffect(() => {
+    if (!aviso) return undefined;
+    const temporizador = setTimeout(() => setAviso(null), 4000);
+    return () => clearTimeout(temporizador);
+  }, [aviso]);
 
   const opcion = buscarOpcion(porcionId);
   const factor = opcion.factor;
@@ -85,16 +88,22 @@ const TablaNutricional = () => {
   const micros = datosNutricionales.filter((item) => item.grupo === 'micro');
   const kcal = energia.valor * factor;
 
-  const alternarPerfil = () => {
-    if (enPerfil) {
-      quitarTablaDelPerfil();
-      setEnPerfil(null);
-      avisar('Se quitó la tabla nutricional de tu perfil');
-    } else {
-      setEnPerfil(guardarTablaEnPerfil(opcion.id));
-      avisar(`Agregado a tu perfil: ${opcion.etiqueta} (${opcion.gramos} g), ${formatoNumero.format(kcal)} kcal`);
-    }
+  const agregarAlPerfil = () => {
+    setEnPerfil(guardarTablaEnPerfil(opcion.id));
+    const texto = `${opcion.etiqueta} (${opcion.gramos} g) · ${formatoNumero.format(kcal)} kcal`;
+    setAviso({ id: Date.now(), tipo: 'agregado', texto });
   };
+
+  const quitarDelPerfil = () => {
+    quitarTablaDelPerfil();
+    setEnPerfil(null);
+    setAviso({ id: Date.now(), tipo: 'quitado', texto: 'Ya no aparece en tu perfil' });
+  };
+
+  const alternarPerfil = () => (enPerfil ? quitarDelPerfil() : agregarAlPerfil());
+
+  // Deshacer revierte la última acción del aviso
+  const deshacer = () => (aviso?.tipo === 'agregado' ? quitarDelPerfil() : agregarAlPerfil());
 
   const cambiarPorcion = (id) => {
     setPorcionId(id);
@@ -106,7 +115,14 @@ const TablaNutricional = () => {
     <div className="nutricion-tabla-card">
       <div className="nutricion-tabla-encabezado">
         <div>
-          <p className="nutricion-tabla-eyebrow">Información nutricional</p>
+          <p className="nutricion-tabla-eyebrow">
+            Información nutricional
+            {enPerfil && (
+              <span className="nutricion-tabla-en-perfil">
+                <i className="bi bi-check2" aria-hidden="true"></i> En tu perfil
+              </span>
+            )}
+          </p>
           <h3 className="nutricion-tabla-titulo font-poppins">Detalle por porción</h3>
           <p className="nutricion-tabla-porcion">
             Porción base: {porcion.descripcion} ({porcion.gramos} g)
@@ -219,6 +235,7 @@ const TablaNutricional = () => {
           ))}
         </div>
         <button
+          key={enPerfil ? 'agregado' : 'sin-agregar'}
           type="button"
           className={`nutricion-tabla-boton${enPerfil ? ' esta-agregado' : ''}`}
           aria-pressed={Boolean(enPerfil)}
@@ -228,6 +245,32 @@ const TablaNutricional = () => {
           <span>{enPerfil ? 'Agregado al perfil' : 'Agregar al perfil'}</span>
           {enPerfil && <span className="nutricion-tabla-boton-quitar">Quitar</span>}
         </button>
+      </div>
+
+      <div className="nutricion-tabla-aviso-zona" role="status" aria-live="polite">
+        {aviso && (
+          <div key={aviso.id} className={`nutricion-tabla-aviso es-${aviso.tipo}`}>
+            <i
+              className={`bi ${aviso.tipo === 'agregado' ? 'bi-check-circle-fill' : 'bi-dash-circle'}`}
+              aria-hidden="true"
+            ></i>
+            <div className="nutricion-tabla-aviso-texto">
+              <strong>{aviso.tipo === 'agregado' ? 'Agregado a tu perfil' : 'Quitado de tu perfil'}</strong>
+              <span>{aviso.texto}</span>
+            </div>
+            <button type="button" className="nutricion-tabla-aviso-deshacer" onClick={deshacer}>
+              Deshacer
+            </button>
+            <button
+              type="button"
+              className="nutricion-tabla-aviso-cerrar"
+              aria-label="Cerrar aviso"
+              onClick={() => setAviso(null)}
+            >
+              <i className="bi bi-x-lg" aria-hidden="true"></i>
+            </button>
+          </div>
+        )}
       </div>
 
       <p className="nutricion-tabla-nota">
