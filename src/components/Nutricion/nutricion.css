@@ -36,7 +36,6 @@
   color: var(--color-sazon-marfil);
 }
 
-/* Encabezado */
 .nutricion-tabla-encabezado {
   display: flex;
   flex-wrap: wrap;
@@ -99,7 +98,6 @@
   color: var(--nt-texto-sec);
 }
 
-/* Distribución de energía */
 .nutricion-tabla-distribucion {
   padding: 1.25rem 2rem;
   border-bottom: 1px solid var(--nt-borde);
@@ -164,7 +162,6 @@
   border-radius: 0.1875rem;
 }
 
-/* Tabla */
 .nutricion-tabla-scroll {
   overflow-x: auto;
 }
@@ -286,7 +283,6 @@
   color: var(--nt-texto-sec);
 }
 
-/* Pie */
 .nutricion-tabla-pie {
   display: flex;
   flex-wrap: wrap;
@@ -380,7 +376,6 @@
   border-left: 1px solid currentColor;
 }
 
-/* Selector de porción */
 .nutricion-tabla-controles {
   display: flex;
   flex-wrap: wrap;
@@ -442,7 +437,6 @@
   opacity: 0.75;
 }
 
-/* Desplegar vitaminas y minerales */
 .nutricion-tabla-desplegar {
   display: flex;
   width: 100%;
@@ -495,7 +489,6 @@
   color: var(--nt-texto-sec);
 }
 
-/* Aviso de confirmación junto al botón */
 .nutricion-tabla-aviso-zona:empty {
   display: none;
 }
@@ -587,7 +580,6 @@
   outline-offset: 1px;
 }
 
-/* Indicador "En tu perfil" junto al título */
 .nutricion-tabla-en-perfil {
   display: inline-flex;
   align-items: center;
@@ -607,7 +599,6 @@
   background-color: var(--color-sazon-verdeNeon);
 }
 
-/* El botón "late" al cambiar de estado */
 .nutricion-tabla-boton {
   animation: nutricion-tabla-latido 0.3s ease-out;
 }
@@ -645,7 +636,6 @@
   }
 }
 
-/* Celular: menos relleno y sin barras, para que el % siempre se vea */
 @media (max-width: 640px) {
   .nutricion-tabla-encabezado,
   .nutricion-tabla-controles,
