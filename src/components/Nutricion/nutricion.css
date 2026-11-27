@@ -636,6 +636,75 @@
   }
 }
 
+.nutricion-tabla-cargando {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding: 1.5rem 2rem;
+}
+
+.nutricion-tabla-esqueleto {
+  border-radius: 0.5rem;
+  background: linear-gradient(90deg, var(--nt-pista) 25%, var(--nt-borde-suave) 50%, var(--nt-pista) 75%);
+  background-size: 200% 100%;
+  animation: nutricion-tabla-brillo 1.2s ease-in-out infinite;
+}
+
+.nutricion-tabla-esqueleto.es-titulo {
+  width: 45%;
+  height: 1.75rem;
+}
+
+.nutricion-tabla-esqueleto.es-subtitulo {
+  width: 30%;
+  height: 0.875rem;
+}
+
+.nutricion-tabla-esqueleto.es-barra {
+  width: 100%;
+  height: 0.625rem;
+  margin: 0.75rem 0;
+}
+
+.nutricion-tabla-esqueleto.es-fila {
+  width: 100%;
+  height: 1.5rem;
+}
+
+.nutricion-tabla-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.nutricion-tabla-error > .bi {
+  font-size: 2rem;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-error p {
+  margin: 0;
+  font-weight: 600;
+}
+
+@keyframes nutricion-tabla-brillo {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nutricion-tabla-esqueleto {
+    animation: none;
+  }
+}
+
 @media (max-width: 640px) {
   .nutricion-tabla-encabezado,
   .nutricion-tabla-controles,
