@@ -3,7 +3,837 @@
 /* y colores de las variables --color-sazon-* definidas en index.css. */
 
 /* 1 - Santiago Padilla: Tabla nutricional (.nutricion-tabla) */
+.nutricion-tabla-card {
+  --nt-borde: rgba(63, 64, 64, 0.12);
+  --nt-borde-suave: rgba(63, 64, 64, 0.06);
+  --nt-texto-sec: var(--color-sazon-texto2);
+  --nt-pista: rgba(63, 64, 64, 0.1);
+  --nt-acento: var(--color-sazon-verdeHoja);
+  --nt-proteina: var(--color-sazon-verdeHondo);
+  --nt-carbohidrato: var(--color-sazon-hoja);
+  --nt-grasa: var(--color-sazon-cacao);
+  width: 100%;
+  max-width: 44rem;
+  margin: 1.5rem 0;
+  background-color: #ffffff;
+  color: var(--color-sazon-texto);
+  border: 1px solid var(--nt-borde);
+  border-radius: 1.25rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px -12px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
 
+.dark .nutricion-tabla-card {
+  --nt-borde: rgba(255, 255, 255, 0.12);
+  --nt-borde-suave: rgba(255, 255, 255, 0.06);
+  --nt-texto-sec: rgba(244, 244, 232, 0.7);
+  --nt-pista: rgba(255, 255, 255, 0.12);
+  --nt-acento: var(--color-sazon-verdeNeon);
+  --nt-proteina: var(--color-sazon-verdeNeon);
+  --nt-carbohidrato: var(--color-sazon-hoja);
+  --nt-grasa: #E0A872;
+  background-color: var(--color-sazon-verdeNutresaCard);
+  color: var(--color-sazon-marfil);
+}
+
+.nutricion-tabla-encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 1.5rem 2rem 1.25rem;
+  border-bottom: 1px solid var(--nt-borde);
+}
+
+.nutricion-tabla-eyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nt-acento);
+}
+
+.nutricion-tabla-titulo {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-sazon-verdeNoche);
+}
+
+.dark .nutricion-tabla-titulo {
+  color: var(--color-sazon-marfil);
+}
+
+.nutricion-tabla-porcion {
+  margin: 0.375rem 0 0;
+  font-size: 0.875rem;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-energia {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+}
+
+.nutricion-tabla-energia-valor {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--color-sazon-verdeNoche);
+}
+
+.dark .nutricion-tabla-energia-valor {
+  color: var(--color-sazon-marfil);
+}
+
+.nutricion-tabla-energia-unidad {
+  margin-top: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-distribucion {
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid var(--nt-borde);
+}
+
+.nutricion-tabla-subtitulo {
+  margin: 0 0 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-distribucion-barra {
+  display: flex;
+  gap: 2px;
+  height: 0.625rem;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.nutricion-tabla-segmento.es-proteina,
+.nutricion-tabla-leyenda-punto.es-proteina {
+  background-color: var(--nt-proteina);
+}
+
+.nutricion-tabla-segmento.es-carbohidrato,
+.nutricion-tabla-leyenda-punto.es-carbohidrato {
+  background-color: var(--nt-carbohidrato);
+}
+
+.nutricion-tabla-segmento.es-grasa,
+.nutricion-tabla-leyenda-punto.es-grasa {
+  background-color: var(--nt-grasa);
+}
+
+.nutricion-tabla-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+}
+
+.nutricion-tabla-leyenda li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nutricion-tabla-leyenda strong {
+  font-family: var(--font-inter);
+  font-weight: 700;
+}
+
+.nutricion-tabla-leyenda-punto {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 0.1875rem;
+}
+
+.nutricion-tabla-scroll {
+  overflow-x: auto;
+}
+
+.nutricion-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  text-align: left;
+}
+
+.nutricion-tabla-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.nutricion-tabla thead th {
+  padding: 0.75rem 2rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--nt-texto-sec);
+  border-bottom: 1px solid var(--nt-borde);
+}
+
+.nutricion-tabla tbody th,
+.nutricion-tabla td {
+  padding: 0.75rem 2rem;
+  border-bottom: 1px solid var(--nt-borde-suave);
+  vertical-align: middle;
+}
+
+.nutricion-tabla tbody tr:not(.nutricion-tabla-grupo):hover {
+  background-color: rgba(127, 186, 0, 0.06);
+}
+
+.nutricion-tabla-num {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.nutricion-tabla thead th.nutricion-tabla-col-vd {
+  width: 38%;
+}
+
+.nutricion-tabla-nombre {
+  font-family: var(--font-inter);
+  font-weight: 700;
+}
+
+.nutricion-tabla-fila-sub .nutricion-tabla-nombre {
+  padding-left: 3.25rem;
+  font-weight: 400;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-valor {
+  font-weight: 700;
+}
+
+.nutricion-tabla-fila-sub .nutricion-tabla-valor {
+  font-weight: 500;
+}
+
+.nutricion-tabla-unidad {
+  margin-left: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla .nutricion-tabla-grupo th {
+  padding: 0;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--nt-acento);
+  border-top: 2px solid var(--nt-borde);
+  border-bottom: none;
+}
+
+.nutricion-tabla-vd {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.nutricion-tabla-barra {
+  flex: 1;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background-color: var(--nt-pista);
+  overflow: hidden;
+}
+
+.nutricion-tabla-barra-relleno {
+  height: 100%;
+  border-radius: 9999px;
+  background-color: var(--nt-acento);
+  transition: width 0.4s ease;
+}
+
+.nutricion-tabla-porcentaje {
+  width: 2.75rem;
+  text-align: right;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.nutricion-tabla-sin-vd {
+  display: block;
+  text-align: right;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-pie {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 2rem;
+  border-top: 1px solid var(--nt-borde);
+}
+
+.nutricion-tabla-alergenos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nutricion-tabla-etiqueta {
+  margin-right: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-alergeno {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-sazon-cacao);
+  background-color: rgba(100, 59, 34, 0.08);
+  border: 1px solid rgba(100, 59, 34, 0.2);
+}
+
+.dark .nutricion-tabla-alergeno {
+  color: var(--color-sazon-marfil);
+  background-color: rgba(244, 244, 232, 0.08);
+  border-color: rgba(244, 244, 232, 0.2);
+}
+
+.nutricion-tabla-boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-family: var(--font-inter);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--color-sazon-verdeHoja);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+.nutricion-tabla-boton:hover {
+  background-color: var(--color-sazon-verdeHondo);
+}
+
+.nutricion-tabla-boton:active {
+  transform: scale(0.97);
+}
+
+.nutricion-tabla-boton.esta-agregado {
+  color: var(--color-sazon-verdeHondo);
+  background-color: rgba(127, 186, 0, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(61, 142, 51, 0.45);
+}
+
+.nutricion-tabla-boton.esta-agregado:hover {
+  background-color: rgba(127, 186, 0, 0.24);
+}
+
+.dark .nutricion-tabla-boton.esta-agregado {
+  color: var(--color-sazon-verdeNeon);
+  background-color: rgba(102, 209, 73, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(102, 209, 73, 0.45);
+}
+
+.nutricion-tabla-boton-quitar {
+  margin-left: 0.25rem;
+  padding-left: 0.625rem;
+  font-weight: 500;
+  opacity: 0.75;
+  border-left: 1px solid currentColor;
+}
+
+.nutricion-tabla-controles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--nt-borde);
+}
+
+.nutricion-tabla-controles .nutricion-tabla-subtitulo {
+  margin: 0;
+}
+
+.nutricion-tabla-segmentos {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 0.75rem;
+  background-color: var(--nt-pista);
+}
+
+.nutricion-tabla-segmento-opcion {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 6rem;
+  padding: 0.375rem 0.875rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-family: var(--font-inter);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--nt-texto-sec);
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nutricion-tabla-segmento-opcion:hover {
+  color: inherit;
+}
+
+.nutricion-tabla-segmento-opcion.esta-activa {
+  color: var(--color-sazon-verdeNoche);
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.dark .nutricion-tabla-segmento-opcion.esta-activa {
+  color: var(--color-sazon-marfil);
+  background-color: var(--color-sazon-verdeHondo);
+}
+
+.nutricion-tabla-segmento-gramos {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+.nutricion-tabla-desplegar {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 2rem;
+  border: none;
+  font-family: var(--font-inter);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--nt-acento);
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.nutricion-tabla-desplegar:hover {
+  background-color: rgba(127, 186, 0, 0.08);
+}
+
+.nutricion-tabla-desplegar-accion {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.nutricion-tabla-segmento-opcion:focus-visible,
+.nutricion-tabla-desplegar:focus-visible {
+  outline: 2px solid var(--nt-acento);
+  outline-offset: -2px;
+}
+
+.nutricion-tabla-boton:focus-visible {
+  outline: 2px solid var(--nt-acento);
+  outline-offset: 2px;
+}
+
+.nutricion-tabla-nota {
+  margin: 0;
+  padding: 0.875rem 2rem 1.25rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-aviso-zona:empty {
+  display: none;
+}
+
+.nutricion-tabla-aviso-zona {
+  padding: 0 2rem;
+}
+
+.nutricion-tabla-aviso {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.75rem 0.75rem 1rem;
+  border-radius: 0.875rem;
+  font-size: 0.875rem;
+  color: #ffffff;
+  background-color: var(--color-sazon-verdeHondo);
+  box-shadow: 0 10px 24px -10px rgba(17, 70, 34, 0.6);
+  animation: nutricion-tabla-entrar 0.25s ease-out;
+}
+
+.nutricion-tabla-aviso.es-quitado {
+  background-color: var(--color-sazon-texto);
+}
+
+.dark .nutricion-tabla-aviso {
+  color: var(--color-sazon-verdeNoche);
+  background-color: var(--color-sazon-verdeNeon);
+}
+
+.dark .nutricion-tabla-aviso.es-quitado {
+  color: var(--color-sazon-verdeNoche);
+  background-color: var(--color-sazon-marfil);
+}
+
+.nutricion-tabla-aviso > .bi {
+  font-size: 1.25rem;
+}
+
+.nutricion-tabla-aviso-texto {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  line-height: 1.35;
+}
+
+.nutricion-tabla-aviso-texto span {
+  font-size: 0.8125rem;
+  opacity: 0.85;
+}
+
+.nutricion-tabla-aviso-deshacer,
+.nutricion-tabla-aviso-cerrar {
+  border: none;
+  border-radius: 0.5rem;
+  font-family: var(--font-inter);
+  font-weight: 700;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.nutricion-tabla-aviso-deshacer {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8125rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.nutricion-tabla-aviso-cerrar {
+  padding: 0.375rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.nutricion-tabla-aviso-deshacer:hover,
+.nutricion-tabla-aviso-cerrar:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark .nutricion-tabla-aviso-deshacer:hover,
+.dark .nutricion-tabla-aviso-cerrar:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.nutricion-tabla-aviso-deshacer:focus-visible,
+.nutricion-tabla-aviso-cerrar:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 1px;
+}
+
+.nutricion-tabla-en-perfil {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: 0.625rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.625rem;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  background-color: var(--color-sazon-verdeHoja);
+  animation: nutricion-tabla-entrar 0.25s ease-out;
+}
+
+.dark .nutricion-tabla-en-perfil {
+  color: var(--color-sazon-verdeNoche);
+  background-color: var(--color-sazon-verdeNeon);
+}
+
+.nutricion-tabla-boton {
+  animation: nutricion-tabla-latido 0.3s ease-out;
+}
+
+@keyframes nutricion-tabla-entrar {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nutricion-tabla-latido {
+  0% {
+    transform: scale(0.94);
+  }
+  60% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nutricion-tabla-aviso,
+  .nutricion-tabla-en-perfil,
+  .nutricion-tabla-boton,
+  .nutricion-tabla-barra-relleno {
+    animation: none;
+    transition: none;
+  }
+}
+
+.nutricion-tabla-cargando {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding: 1.5rem 2rem;
+}
+
+.nutricion-tabla-esqueleto {
+  border-radius: 0.5rem;
+  background: linear-gradient(90deg, var(--nt-pista) 25%, var(--nt-borde-suave) 50%, var(--nt-pista) 75%);
+  background-size: 200% 100%;
+  animation: nutricion-tabla-brillo 1.2s ease-in-out infinite;
+}
+
+.nutricion-tabla-esqueleto.es-titulo {
+  width: 45%;
+  height: 1.75rem;
+}
+
+.nutricion-tabla-esqueleto.es-subtitulo {
+  width: 30%;
+  height: 0.875rem;
+}
+
+.nutricion-tabla-esqueleto.es-barra {
+  width: 100%;
+  height: 0.625rem;
+  margin: 0.75rem 0;
+}
+
+.nutricion-tabla-esqueleto.es-fila {
+  width: 100%;
+  height: 1.5rem;
+}
+
+.nutricion-tabla-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.nutricion-tabla-error > .bi {
+  font-size: 2rem;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-error p {
+  margin: 0;
+  font-weight: 600;
+}
+
+@keyframes nutricion-tabla-brillo {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nutricion-tabla-esqueleto {
+    animation: none;
+  }
+}
+
+.nutricion-tabla-personalizada {
+  display: flex;
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin: 0;
+  animation: nutricion-tabla-entrar 0.25s ease-out;
+}
+
+.nutricion-tabla-personalizada label {
+  font-family: var(--font-inter);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+.nutricion-tabla-campo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--nt-borde);
+  border-radius: 0.625rem;
+  background-color: transparent;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nutricion-tabla-campo:focus-within {
+  border-color: var(--nt-acento);
+  box-shadow: 0 0 0 3px rgba(127, 186, 0, 0.2);
+}
+
+.nutricion-tabla-campo.es-invalido {
+  border-color: var(--color-sazon-brandZenu);
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15);
+}
+
+.nutricion-tabla-campo input {
+  width: 5rem;
+  padding: 0.5rem 0;
+  border: none;
+  outline: none;
+  font-family: var(--font-inter);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: inherit;
+  background: transparent;
+}
+
+.nutricion-tabla-campo span {
+  font-size: 0.8125rem;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-campo-ayuda {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-campo-ayuda.es-error {
+  font-weight: 600;
+  color: var(--color-sazon-brandZenu);
+}
+
+.dark .nutricion-tabla-campo-ayuda.es-error {
+  color: #FF8A80;
+}
+
+.dark .nutricion-tabla-campo.es-invalido {
+  border-color: #FF8A80;
+}
+
+@media (max-width: 640px) {
+  .nutricion-tabla-encabezado,
+  .nutricion-tabla-controles,
+  .nutricion-tabla-aviso-zona,
+  .nutricion-tabla-distribucion,
+  .nutricion-tabla-pie,
+  .nutricion-tabla-nota {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .nutricion-tabla thead th,
+  .nutricion-tabla tbody th,
+  .nutricion-tabla td,
+  .nutricion-tabla-desplegar {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .nutricion-tabla-fila-sub .nutricion-tabla-nombre {
+    padding-left: 1.75rem;
+  }
+
+  .nutricion-tabla thead th.nutricion-tabla-col-vd {
+    width: auto;
+    text-align: right;
+  }
+
+  .nutricion-tabla-barra {
+    display: none;
+  }
+
+  .nutricion-tabla-vd {
+    justify-content: flex-end;
+  }
+
+  .nutricion-tabla-boton {
+    width: 100%;
+  }
+
+  .nutricion-tabla-segmentos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+
+  .nutricion-tabla-segmento-opcion {
+    flex: 1;
+    min-width: 0;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
 /* Fin 1 */
 
 /* 2 - Juan Camilo Valencia Estrada: Semáforo y avisos (.nutricion-semaforo-*, .nutricion-aviso-card) */
