@@ -38,6 +38,18 @@ const FilaNutriente = ({ item, factor }) => {
   );
 };
 
+const ID_PERSONALIZADA = 'personalizada';
+const GRAMOS_MIN = 10;
+const GRAMOS_MAX = 1000;
+
+const validarGramos = (texto) => {
+  if (texto.trim() === '') return 'Escribe los gramos de la porción.';
+  const gramos = Number(texto);
+  if (!Number.isInteger(gramos)) return 'Usa un número entero, sin decimales.';
+  if (gramos < GRAMOS_MIN || gramos > GRAMOS_MAX) return `Debe estar entre ${GRAMOS_MIN} y ${GRAMOS_MAX} g.`;
+  return '';
+};
+
 const DetalleNutricional = ({ porcion, opcionesPorcion, energia, datosNutricionales, alergenos }) => {
   const idMicros = useId();
   const opcionBase = opcionesPorcion.find((opcion) => opcion.factor === 1) ?? opcionesPorcion[0];
@@ -45,6 +57,8 @@ const DetalleNutricional = ({ porcion, opcionesPorcion, energia, datosNutriciona
   const distribucion = calcularDistribucion(datosNutricionales);
   const [enPerfil, setEnPerfil] = useState(() => leerTablaEnPerfil());
   const [porcionId, setPorcionId] = useState(() => enPerfil?.porcionId ?? opcionBase.id);
+  const [formulario, setFormulario] = useState(() => ({ gramos: String(enPerfil?.gramos ?? 150) }));
+  const [gramosValidos, setGramosValidos] = useState(() => enPerfil?.gramos ?? 150);
   const [verMicros, setVerMicros] = useState(false);
   const [aviso, setAviso] = useState(null);
 
@@ -54,14 +68,24 @@ const DetalleNutricional = ({ porcion, opcionesPorcion, energia, datosNutriciona
     return () => clearTimeout(temporizador);
   }, [aviso]);
 
-  const opcion = buscarOpcion(porcionId);
+  const errorGramos = validarGramos(formulario.gramos);
+  const opcion =
+    porcionId === ID_PERSONALIZADA
+      ? {
+          id: ID_PERSONALIZADA,
+          etiqueta: 'Porción personalizada',
+          gramos: gramosValidos,
+          factor: gramosValidos / porcion.gramos,
+        }
+      : buscarOpcion(porcionId);
+  const gramosParaGuardar = (id, gramos) => (id === ID_PERSONALIZADA ? gramos : undefined);
   const factor = opcion.factor;
   const macros = datosNutricionales.filter((item) => item.grupo === 'macro');
   const micros = datosNutricionales.filter((item) => item.grupo === 'micro');
   const kcal = energia.valor * factor;
 
   const agregarAlPerfil = () => {
-    setEnPerfil(guardarTablaEnPerfil(opcion.id));
+    setEnPerfil(guardarTablaEnPerfil(opcion.id, gramosParaGuardar(opcion.id, opcion.gramos)));
     const texto = `${opcion.etiqueta} (${opcion.gramos} g) · ${formatearNumero(kcal)} kcal`;
     setAviso({ id: Date.now(), tipo: 'agregado', texto });
   };
@@ -78,7 +102,18 @@ const DetalleNutricional = ({ porcion, opcionesPorcion, energia, datosNutriciona
 
   const cambiarPorcion = (id) => {
     setPorcionId(id);
-    if (enPerfil) setEnPerfil(guardarTablaEnPerfil(id));
+    if (enPerfil) setEnPerfil(guardarTablaEnPerfil(id, gramosParaGuardar(id, gramosValidos)));
+  };
+
+  const manejarCambio = (evento) => {
+    const { name, value } = evento.target;
+    setFormulario((anterior) => ({ ...anterior, [name]: value }));
+    if (validarGramos(value)) return;
+    const gramos = Number(value);
+    setGramosValidos(gramos);
+    if (enPerfil && porcionId === ID_PERSONALIZADA) {
+      setEnPerfil(guardarTablaEnPerfil(ID_PERSONALIZADA, gramos));
+    }
   };
 
   return (
@@ -124,7 +159,45 @@ const DetalleNutricional = ({ porcion, opcionesPorcion, energia, datosNutriciona
               <span className="nutricion-tabla-segmento-gramos">{item.gramos} g</span>
             </button>
           ))}
+          <button
+            type="button"
+            role="radio"
+            aria-checked={porcionId === ID_PERSONALIZADA}
+            className={`nutricion-tabla-segmento-opcion${porcionId === ID_PERSONALIZADA ? ' esta-activa' : ''}`}
+            onClick={() => cambiarPorcion(ID_PERSONALIZADA)}
+          >
+            Personalizada
+            <span className="nutricion-tabla-segmento-gramos">{gramosValidos} g</span>
+          </button>
         </div>
+        {porcionId === ID_PERSONALIZADA && (
+          <form className="nutricion-tabla-personalizada" onSubmit={(evento) => evento.preventDefault()} noValidate>
+            <label htmlFor={`${idMicros}-gramos`}>Gramos por porción</label>
+            <div className={`nutricion-tabla-campo${errorGramos ? ' es-invalido' : ''}`}>
+              <input
+                id={`${idMicros}-gramos`}
+                name="gramos"
+                type="number"
+                inputMode="numeric"
+                min={GRAMOS_MIN}
+                max={GRAMOS_MAX}
+                step={1}
+                value={formulario.gramos}
+                onChange={manejarCambio}
+                aria-invalid={Boolean(errorGramos)}
+                aria-describedby={`${idMicros}-gramos-ayuda`}
+              />
+              <span aria-hidden="true">g</span>
+            </div>
+            <p
+              id={`${idMicros}-gramos-ayuda`}
+              className={`nutricion-tabla-campo-ayuda${errorGramos ? ' es-error' : ''}`}
+              aria-live="polite"
+            >
+              {errorGramos || `Entre ${GRAMOS_MIN} y ${GRAMOS_MAX} g. Los valores se actualizan mientras escribes.`}
+            </p>
+          </form>
+        )}
       </div>
 
       <div className="nutricion-tabla-distribucion">

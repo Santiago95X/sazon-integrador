@@ -18,14 +18,16 @@ export function obtenerTablaNutricional() {
 export function leerTablaEnPerfil() {
   try {
     const guardado = JSON.parse(sessionStorage.getItem(CLAVE_TABLA_PERFIL))
-    return guardado && typeof guardado.porcionId === 'string' ? guardado : null
+    if (!guardado || typeof guardado.porcionId !== 'string') return null
+    if (guardado.gramos !== undefined && !Number.isInteger(guardado.gramos)) return null
+    return guardado
   } catch {
     return null
   }
 }
 
-export function guardarTablaEnPerfil(porcionId) {
-  const registro = { porcionId, fecha: new Date().toISOString() }
+export function guardarTablaEnPerfil(porcionId, gramos) {
+  const registro = { porcionId, gramos, fecha: new Date().toISOString() }
   try {
     sessionStorage.setItem(CLAVE_TABLA_PERFIL, JSON.stringify(registro))
     return registro
