@@ -1,4 +1,15 @@
+import { porcion, opcionesPorcion, energia, datosNutricionales, alergenos } from './semillaNutricional'
+
 const CLAVE_TABLA_PERFIL = 'sazon-tabla-en-perfil'
+const DEMORA_SIMULADA_MS = 600
+
+export function obtenerTablaNutricional() {
+  return new Promise((resolver) => {
+    setTimeout(() => {
+      resolver(structuredClone({ porcion, opcionesPorcion, energia, datosNutricionales, alergenos }))
+    }, DEMORA_SIMULADA_MS)
+  })
+}
 
 export function leerTablaEnPerfil() {
   try {
