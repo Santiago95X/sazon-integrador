@@ -1,29 +1,6 @@
 import { useEffect, useId, useState } from 'react';
 import { leerTablaEnPerfil, guardarTablaEnPerfil, quitarTablaDelPerfil } from './tablaNutricionalServicio';
-
-const formatoNumero = new Intl.NumberFormat('es-CO', { maximumFractionDigits: 1 });
-
-const porcentajeDiario = (valor, valorDiario) =>
-  valorDiario ? Math.round((valor / valorDiario) * 100) : null;
-
-const calcularDistribucion = (datosNutricionales) => {
-  const buscarValor = (nombre) => datosNutricionales.find((item) => item.nutriente === nombre)?.valor ?? 0;
-  const kcalMacros = [
-    { nombre: 'Proteínas', kcal: buscarValor('Proteínas') * 4, clase: 'proteina' },
-    { nombre: 'Carbohidratos', kcal: buscarValor('Carbohidratos totales') * 4, clase: 'carbohidrato' },
-    { nombre: 'Grasas', kcal: buscarValor('Grasa total') * 9, clase: 'grasa' },
-  ];
-  const kcalTotal = kcalMacros.reduce((suma, macro) => suma + macro.kcal, 0);
-  const distribucion = kcalMacros.map((macro) => ({
-    ...macro,
-    porcentaje: kcalTotal ? Math.round((macro.kcal / kcalTotal) * 100) : 0,
-  }));
-  if (kcalTotal) {
-    const ultimo = distribucion[distribucion.length - 1];
-    ultimo.porcentaje = 100 - distribucion.slice(0, -1).reduce((suma, macro) => suma + macro.porcentaje, 0);
-  }
-  return distribucion;
-};
+import { formatearNumero, porcentajeDiario, calcularDistribucion } from './formatoNutricional';
 
 const FilaNutriente = ({ item, factor }) => {
   const valor = item.valor * factor;
@@ -32,7 +9,7 @@ const FilaNutriente = ({ item, factor }) => {
     <tr className={item.nivel === 1 ? 'nutricion-tabla-fila-sub' : undefined}>
       <th scope="row" className="nutricion-tabla-nombre">{item.nutriente}</th>
       <td className="nutricion-tabla-num">
-        <span className="nutricion-tabla-valor">{formatoNumero.format(valor)}</span>
+        <span className="nutricion-tabla-valor">{formatearNumero(valor)}</span>
         <span className="nutricion-tabla-unidad">{item.unidad}</span>
       </td>
       <td>
@@ -85,7 +62,7 @@ const DetalleNutricional = ({ porcion, opcionesPorcion, energia, datosNutriciona
 
   const agregarAlPerfil = () => {
     setEnPerfil(guardarTablaEnPerfil(opcion.id));
-    const texto = `${opcion.etiqueta} (${opcion.gramos} g) · ${formatoNumero.format(kcal)} kcal`;
+    const texto = `${opcion.etiqueta} (${opcion.gramos} g) · ${formatearNumero(kcal)} kcal`;
     setAviso({ id: Date.now(), tipo: 'agregado', texto });
   };
 
@@ -123,7 +100,7 @@ const DetalleNutricional = ({ porcion, opcionesPorcion, energia, datosNutriciona
         </div>
         <div className="nutricion-tabla-energia" aria-live="polite">
           <span className="nutricion-tabla-energia-valor font-poppins">
-            {formatoNumero.format(kcal)}
+            {formatearNumero(kcal)}
           </span>
           <span className="nutricion-tabla-energia-unidad">
             {energia.unidad} · {porcentajeDiario(kcal, energia.valorDiario)}% VD
