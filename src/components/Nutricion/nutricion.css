@@ -705,6 +705,82 @@
   }
 }
 
+.nutricion-tabla-personalizada {
+  display: flex;
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin: 0;
+  animation: nutricion-tabla-entrar 0.25s ease-out;
+}
+
+.nutricion-tabla-personalizada label {
+  font-family: var(--font-inter);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+.nutricion-tabla-campo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--nt-borde);
+  border-radius: 0.625rem;
+  background-color: transparent;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nutricion-tabla-campo:focus-within {
+  border-color: var(--nt-acento);
+  box-shadow: 0 0 0 3px rgba(127, 186, 0, 0.2);
+}
+
+.nutricion-tabla-campo.es-invalido {
+  border-color: var(--color-sazon-brandZenu);
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15);
+}
+
+.nutricion-tabla-campo input {
+  width: 5rem;
+  padding: 0.5rem 0;
+  border: none;
+  outline: none;
+  font-family: var(--font-inter);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: inherit;
+  background: transparent;
+}
+
+.nutricion-tabla-campo span {
+  font-size: 0.8125rem;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-campo-ayuda {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--nt-texto-sec);
+}
+
+.nutricion-tabla-campo-ayuda.es-error {
+  font-weight: 600;
+  color: var(--color-sazon-brandZenu);
+}
+
+.dark .nutricion-tabla-campo-ayuda.es-error {
+  color: #FF8A80;
+}
+
+.dark .nutricion-tabla-campo.es-invalido {
+  border-color: #FF8A80;
+}
+
 @media (max-width: 640px) {
   .nutricion-tabla-encabezado,
   .nutricion-tabla-controles,
@@ -746,7 +822,8 @@
   }
 
   .nutricion-tabla-segmentos {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     width: 100%;
   }
 
