@@ -4,9 +4,13 @@ const CLAVE_TABLA_PERFIL = 'sazon-tabla-en-perfil'
 const DEMORA_SIMULADA_MS = 600
 
 export function obtenerTablaNutricional() {
-  return new Promise((resolver) => {
+  return new Promise((resolver, rechazar) => {
     setTimeout(() => {
-      resolver(structuredClone({ porcion, opcionesPorcion, energia, datosNutricionales, alergenos }))
+      try {
+        resolver(structuredClone({ porcion, opcionesPorcion, energia, datosNutricionales, alergenos }))
+      } catch (error) {
+        rechazar(error)
+      }
     }, DEMORA_SIMULADA_MS)
   })
 }
